@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="Tulbar">
+        <attr name="text" format="string"/>
+        <attr name="color" format="color"/>
+        <attr name="customIconEnabled" format="boolean"/>
+        <attr name="customIconDrawable" format="reference"/>
+    </declare-styleable>
+</resources>
