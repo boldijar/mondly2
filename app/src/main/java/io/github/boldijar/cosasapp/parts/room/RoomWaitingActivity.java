@@ -6,8 +6,10 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -98,6 +100,20 @@ public class RoomWaitingActivity extends BaseActivity {
 
         }
         mTulbar.enableCustomIcon(mUserCreated);
+        mTulbar.setCustomIconClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mAdapter.getItemCount() == 0) {
+                    Toast.makeText(RoomWaitingActivity.this, "You can't play alone!", Toast.LENGTH_SHORT).show();
+                } else {
+                    startGame();
+                }
+            }
+        });
+    }
+
+    private void startGame() {
+
     }
 
     @Override
