@@ -89,6 +89,7 @@ public class GameActivity extends BaseActivity implements BaseQuestionFragment.B
         }
         mGamePagerAdapter = new GamePagerAdapter(getSupportFragmentManager(), mGame.mQuestions, this);
         mViewPager.setAdapter(mGamePagerAdapter);
+        mViewPager.setOnTouchListener((arg0, arg1) -> true);
         mProgressBar.setMax(60);
         mProgressBar.setProgress(0);
         Observable.interval(1, TimeUnit.SECONDS)
@@ -148,7 +149,7 @@ public class GameActivity extends BaseActivity implements BaseQuestionFragment.B
         if (event.mUser.mId == mOwnId) {
             // we got an update, that we just answered something, move on to next question
             if (mViewPager.getCurrentItem() < mGamePagerAdapter.getCount() - 1) {
-                mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1);
+                mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1, true);
             } else {
                 // wtf? game is over
                 Timber.e(new Exception("GAME should be over right now..."));

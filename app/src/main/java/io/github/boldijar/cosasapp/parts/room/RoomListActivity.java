@@ -87,7 +87,7 @@ public class RoomListActivity extends BaseActivity {
             User initiator = item.mPlayers.get(0);
             Glide.with(mImage).load(initiator.mImage).into(mImage);
             CharSequence when = DateUtils.getRelativeTimeSpanString(item.mCreated.getTime(), System.currentTimeMillis(), 0L);
-            mText.setText("Room created by " + initiator.mName +" "+ when + ".\nPlayers joined: " + count);
+            mText.setText("Room created by " + initiator.mName + " " + when + ".\nPlayers joined: " + count);
             itemView.setOnClickListener(view -> selectedRoom(item));
         }
     }
@@ -98,7 +98,8 @@ public class RoomListActivity extends BaseActivity {
                 .subscribe(new Observatorul<BaseResponse>() {
                     @Override
                     public void onNext(BaseResponse baseResponse) {
-                        startActivity(RoomWaitingActivity.createIntent(RoomListActivity.this, item.mId, false,item));
+                        finish();
+                        startActivity(RoomWaitingActivity.createIntent(RoomListActivity.this, item.mId, false, item));
                     }
                 });
     }

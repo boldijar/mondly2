@@ -25,6 +25,7 @@
 
         </activity>
         <activity android:name=".game.stats.GameStatsActivity"/>
+        <activity android:name=".leaderboard.LeaderboardActivity"/>
 
         <service android:name=".fcm.FCMService">
             <intent-filter>
