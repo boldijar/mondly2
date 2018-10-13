@@ -10,9 +10,10 @@ import com.bumptech.glide.Glide;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.github.boldijar.cosasapp.parts.login.LoginActivity;
 import io.github.boldijar.cosasapp.R;
 import io.github.boldijar.cosasapp.base.BaseActivity;
+import io.github.boldijar.cosasapp.parts.login.LoginActivity;
+import io.github.boldijar.cosasapp.parts.users.UsersBottomSheet;
 import io.github.boldijar.cosasapp.util.Prefs;
 import pl.bclogic.pulsator4droid.library.PulsatorLayout;
 
@@ -47,5 +48,10 @@ public class HomeActivity extends BaseActivity {
         Intent intent = new Intent(this, LoginActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+    }
+
+    @OnClick(R.id.home_quiz_history)
+    void openHistory() {
+        new UsersBottomSheet().show(getSupportFragmentManager(), "");
     }
 }
