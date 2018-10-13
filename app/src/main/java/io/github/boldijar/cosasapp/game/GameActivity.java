@@ -34,6 +34,7 @@ import io.github.boldijar.cosasapp.util.ObservatorulNormal;
 import io.github.boldijar.cosasapp.util.Prefs;
 import io.github.boldijar.cosasapp.util.RxUtils;
 import io.reactivex.Observable;
+import io.reactivex.disposables.Disposable;
 import timber.log.Timber;
 
 /**
@@ -56,6 +57,8 @@ public class GameActivity extends BaseActivity implements BaseQuestionFragment.B
     private GamePagerAdapter mGamePagerAdapter;
     private Game mGame;
     private int mOwnId;
+    private Disposable mTimer;
+    private boolean mGameOver;
 
     public static Intent createIntent(Context context, Game game) {
         Intent intent = new Intent(context, GameActivity.class);
@@ -75,6 +78,9 @@ public class GameActivity extends BaseActivity implements BaseQuestionFragment.B
 
     @Override
     protected void onDestroy() {
+        if (mTimer != null && !mTimer.isDisposed()) {
+            mTimer.dispose();
+        }
         EventBus.getDefault().unregister(this);
         super.onDestroy();
     }
@@ -90,7 +96,7 @@ public class GameActivity extends BaseActivity implements BaseQuestionFragment.B
         mGamePagerAdapter = new GamePagerAdapter(getSupportFragmentManager(), mGame.mQuestions, this);
         mViewPager.setAdapter(mGamePagerAdapter);
         mViewPager.setOnTouchListener((arg0, arg1) -> true);
-        mProgressBar.setMax(60);
+        mProgressBar.setMax(GAME_SECONDS);
         mProgressBar.setProgress(0);
         Observable.interval(1, TimeUnit.SECONDS)
                 .compose(RxUtils.applySchedulers())
@@ -98,8 +104,27 @@ public class GameActivity extends BaseActivity implements BaseQuestionFragment.B
                     @Override
                     public void onNext(Long aLong) {
                         mProgressBar.setProgress(mProgressBar.getProgress() + 1);
+                        if (mProgressBar.getProgress() > GAME_SECONDS) {
+                            timeEnded();
+                        }
+                    }
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        super.onSubscribe(d);
+                        mTimer = d;
                     }
                 });
+    }
+
+    private void timeEnded() {
+        if (mTimer != null && !mTimer.isDisposed()) {
+            mTimer.dispose();
+            mTimer = null;
+        }
+        Http.getInstance().getApiService().leaveRoom(mGame.mRoomId).subscribe(new Observatorul<>());
+        Toast.makeText(this, "Time is over! You are now a spectator.", Toast.LENGTH_SHORT).show();
+        mGameOver = true;
     }
 
     private void loadArgs() {
@@ -167,6 +192,10 @@ public class GameActivity extends BaseActivity implements BaseQuestionFragment.B
 
     @Override
     public void wannaAnswer(Question question, String answer) {
+        if (mGameOver) {
+            Toast.makeText(this, "Game is over! You are now a spectator.", Toast.LENGTH_SHORT).show();
+            return;
+        }
         Http.getInstance().getApiService().sendAnswer(mGame.mRoomId, question.mId, answer)
                 .compose(RxUtils.applySchedulers())
                 .subscribe(new Observatorul<BaseResponse>() {

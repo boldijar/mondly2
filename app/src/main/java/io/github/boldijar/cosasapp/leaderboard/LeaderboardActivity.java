@@ -69,7 +69,7 @@ public class LeaderboardActivity extends BaseActivity {
         @Override
         public void bind(User item, int position) {
             position++;
-            mName.setText(position + ". " + item.mName);
+            mName.setText(position + ". " + item.mName + ", " + item.mAllScore + " points");
             Glide.with(itemView).load(item.mImage).into(mImage);
         }
     }

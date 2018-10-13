@@ -48,6 +48,6 @@ public interface ApiService {
     @GET("rooms/{room_id}/stats")
     Observable<GameStatsResponse> getGameStats(@Path("room_id") int roomId);
 
-    @GET("users")
+    @GET("leaderboard")
     Observable<GameStatsResponse> getLeaderboard();
 }

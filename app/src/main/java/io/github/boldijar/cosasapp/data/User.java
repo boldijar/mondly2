@@ -28,6 +28,9 @@ public class User implements Parcelable {
     public int mQuestionAnsweredCount;
     @SerializedName("question_answered_total")
     public int mQuestionAnsweredTotal;
+    @SerializedName("overall_score")
+    public int mAllScore;
+
 
     @Override
     public String toString() {
