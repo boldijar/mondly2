@@ -8,7 +8,7 @@
         android:useLevel="true">
 
         <solid
-            android:color="@color/white"
+            android:color="@color/progress"
             android:type="sweep"
             android:useLevel="false"/>
     </shape>

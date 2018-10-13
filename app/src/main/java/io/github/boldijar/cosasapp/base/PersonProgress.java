@@ -11,6 +11,8 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
+import com.bumptech.glide.Glide;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.github.boldijar.cosasapp.R;
@@ -53,5 +55,9 @@ public class PersonProgress extends FrameLayout {
         animation.setDuration(500);
         animation.setInterpolator(new DecelerateInterpolator());
         animation.start();
+    }
+
+    public void loadImage(String image) {
+        Glide.with(this).load(image).into(mImage);
     }
 }

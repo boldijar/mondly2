@@ -9,5 +9,6 @@
     <color name="text_color_secondary">#555555</color>
     <color name="text_color_important">#03A9F4</color>
 
-    <color name="progress">@color/text_color_important</color>
+    <color name="progress">#03A9F4</color>
+    <color name="progress_bg">#7003A9F4</color>
 </resources>
