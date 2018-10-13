@@ -1,4 +1,4 @@
-package io.github.boldijar.cosasapp;
+package io.github.boldijar.cosasapp.parts.login;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,7 @@ import android.widget.EditText;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.github.boldijar.cosasapp.R;
 import io.github.boldijar.cosasapp.base.BaseActivity;
 import io.github.boldijar.cosasapp.data.LoginBody;
 import io.github.boldijar.cosasapp.data.LoginResponse;

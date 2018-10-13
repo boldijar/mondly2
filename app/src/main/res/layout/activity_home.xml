@@ -26,6 +26,11 @@
         app:pulse_repeat="0"
         app:pulse_startFromScratch="true">
 
+        <View
+            android:layout_width="125dp"
+            android:layout_height="125dp"
+            android:background="@android:color/transparent"/>
+
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/home_image"
             android:layout_width="125dp"
@@ -34,6 +39,8 @@
             android:clickable="true"
             android:contentDescription="@null"
             android:focusable="true"
+            android:minHeight="125dp"
+            android:minWidth="125dp"
             tools:src="@drawable/brain"
             />
 

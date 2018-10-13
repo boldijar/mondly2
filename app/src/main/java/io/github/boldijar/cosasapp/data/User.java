@@ -16,4 +16,6 @@ public class User {
     public String mEmail;
     @SerializedName("image")
     public String mImage;
+    @SerializedName("name")
+    public String mName;
 }

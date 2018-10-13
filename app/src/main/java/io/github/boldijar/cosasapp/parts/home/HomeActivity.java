@@ -10,7 +10,7 @@ import com.bumptech.glide.Glide;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.github.boldijar.cosasapp.LoginActivity;
+import io.github.boldijar.cosasapp.parts.login.LoginActivity;
 import io.github.boldijar.cosasapp.R;
 import io.github.boldijar.cosasapp.base.BaseActivity;
 import io.github.boldijar.cosasapp.util.Prefs;
