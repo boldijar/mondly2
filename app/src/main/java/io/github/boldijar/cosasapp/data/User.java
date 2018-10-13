@@ -22,6 +22,13 @@ public class User implements Parcelable {
     @SerializedName("name")
     public String mName;
 
+    @SerializedName("score")
+    public int mScore;
+    @SerializedName("question_answered_count")
+    public int mQuestionAnsweredCount;
+    @SerializedName("question_answered_total")
+    public int mQuestionAnsweredTotal;
+
     @Override
     public String toString() {
         return "User{" +
@@ -52,6 +59,9 @@ public class User implements Parcelable {
         return mId;
     }
 
+    public User() {
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -64,9 +74,9 @@ public class User implements Parcelable {
         dest.writeString(this.mEmail);
         dest.writeString(this.mImage);
         dest.writeString(this.mName);
-    }
-
-    public User() {
+        dest.writeInt(this.mScore);
+        dest.writeInt(this.mQuestionAnsweredCount);
+        dest.writeInt(this.mQuestionAnsweredTotal);
     }
 
     protected User(Parcel in) {
@@ -75,9 +85,12 @@ public class User implements Parcelable {
         this.mEmail = in.readString();
         this.mImage = in.readString();
         this.mName = in.readString();
+        this.mScore = in.readInt();
+        this.mQuestionAnsweredCount = in.readInt();
+        this.mQuestionAnsweredTotal = in.readInt();
     }
 
-    public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>() {
+    public static final Creator<User> CREATOR = new Creator<User>() {
         @Override
         public User createFromParcel(Parcel source) {
             return new User(source);

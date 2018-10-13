@@ -11,4 +11,7 @@
     <string name="search_here">Search here…</string>
     <string name="waiting_for_players">Waiting for players</string>
     <string name="choose_room">Choose your room</string>
+    <string name="results">Results</string>
+    <string name="you_lost">You lost! 😭</string>
+    <string name="you_won">You won! 😍🔝👌</string>
 </resources>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginRight="8dp">
+
+
+    <pl.bclogic.pulsator4droid.library.PulsatorLayout
+        android:id="@+id/user_stats_image_layout"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        app:pulse_color="@color/text_color_important"
+        app:pulse_count="6"
+        app:pulse_duration="3500"
+        app:pulse_interpolator="Linear"
+        app:pulse_repeat="0"
+        app:pulse_startFromScratch="false">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/user_stats_image"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerInParent="true"
+            android:clickable="true"
+            android:contentDescription="@null"
+            android:focusable="true"
+            tools:src="@drawable/brain"
+            />
+
+
+    </pl.bclogic.pulsator4droid.library.PulsatorLayout>
+
+    <TextView
+        android:id="@+id/user_stats_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:textAllCaps="true"
+        android:textColor="@color/text_color"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/user_stats_image_layout"
+        app:layout_constraintStart_toEndOf="@+id/user_stats_image_layout"
+        app:layout_constraintTop_toTopOf="@+id/user_stats_image_layout"
+        tools:text="Matea Andrei"/>
+
+    <TextView
+        android:id="@+id/user_stats_subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:textColor="@color/text_color_secondary"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@+id/user_stats_image_layout"
+        app:layout_constraintTop_toBottomOf="@+id/user_stats_name"
+        tools:text="Abcabc"/>
+</android.support.constraint.ConstraintLayout>

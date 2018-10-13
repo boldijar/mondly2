@@ -2,6 +2,7 @@ package io.github.boldijar.cosasapp.server;
 
 
 import io.github.boldijar.cosasapp.data.BaseResponse;
+import io.github.boldijar.cosasapp.data.GameStatsResponse;
 import io.github.boldijar.cosasapp.data.LoginBody;
 import io.github.boldijar.cosasapp.data.LoginResponse;
 import io.github.boldijar.cosasapp.data.RoomResponse;
@@ -43,4 +44,7 @@ public interface ApiService {
 
     @POST("rooms/{room_id}/question/{question_id}")
     Observable<BaseResponse> sendAnswer(@Path("room_id") int roomId, @Path("question_id") int questionId, @Query("answer") String answer);
+
+    @GET("rooms/{room_id}/stats")
+    Observable<GameStatsResponse> getGameStats(@Path("room_id") int roomId);
 }

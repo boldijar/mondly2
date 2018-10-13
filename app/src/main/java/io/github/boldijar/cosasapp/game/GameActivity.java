@@ -27,6 +27,7 @@ import io.github.boldijar.cosasapp.data.MessageType;
 import io.github.boldijar.cosasapp.data.Question;
 import io.github.boldijar.cosasapp.data.ServerMessage;
 import io.github.boldijar.cosasapp.data.User;
+import io.github.boldijar.cosasapp.game.stats.GameStatsActivity;
 import io.github.boldijar.cosasapp.server.Http;
 import io.github.boldijar.cosasapp.util.Observatorul;
 import io.github.boldijar.cosasapp.util.ObservatorulNormal;
@@ -126,6 +127,14 @@ public class GameActivity extends BaseActivity implements BaseQuestionFragment.B
         if (event.mType == MessageType.ROOM_PLAYER_UPDATE) {
             handlePlayerUpdate(event);
         }
+        if (event.mType == MessageType.ROOM_GAME_OVER) {
+            handleGameOver();
+        }
+    }
+
+    private void handleGameOver() {
+        finish();
+        startActivity(GameStatsActivity.createIntent(mGame.mRoomId, this));
     }
 
     private void handlePlayerUpdate(ServerMessage event) {

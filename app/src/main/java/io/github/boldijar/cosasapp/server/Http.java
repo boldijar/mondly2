@@ -4,6 +4,7 @@ import com.google.gson.GsonBuilder;
 
 import io.github.boldijar.cosasapp.util.Prefs;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -16,6 +17,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * @since 2018.10.12
  */
 public class Http {
+
+    private static boolean DEBUG = true;
 
     private static final String ENDPOINT = "http://56baae01.ngrok.io/api/";
     private ApiService mApiService;
@@ -32,6 +35,21 @@ public class Http {
                 .baseUrl(ENDPOINT)
                 .client(new OkHttpClient.Builder()
                         .addInterceptor(interceptor)
+                        .addInterceptor(chain -> {
+                            Request original = chain.request();
+                            HttpUrl originalHttpUrl = original.url();
+                            HttpUrl.Builder urlBuilder = originalHttpUrl.newBuilder();
+                            if (DEBUG) {
+                                urlBuilder = urlBuilder.addQueryParameter("XDEBUG_SESSION_START", "PHPSTORM");
+                            }
+                            HttpUrl url = urlBuilder.build();
+
+                            Request.Builder requestBuilder = original.newBuilder()
+                                    .url(url);
+
+                            Request request = requestBuilder.build();
+                            return chain.proceed(request);
+                        })
                         .addInterceptor(chain -> {
                             final Request original = chain.request();
                             Request.Builder builder = original.newBuilder();
