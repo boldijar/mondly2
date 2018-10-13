@@ -41,4 +41,6 @@ public interface ApiService {
     @POST("rooms/{room_id}/start")
     Observable<BaseResponse> startGame(@Path("room_id") int roomId);
 
+    @POST("rooms/{room_id}/question/{question_id}")
+    Observable<BaseResponse> sendAnswer(@Path("room_id") int roomId, @Path("question_id") int questionId, @Query("answer") String answer);
 }

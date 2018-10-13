@@ -12,7 +12,16 @@
         android:layout_width="58dp"
         android:layout_height="58dp"
         android:layout_gravity="center"
-        android:src="@drawable/andu"/>
+        tools:src="@drawable/andu"/>
+
+    <ImageView
+        android:id="@+id/progress_dead_overlay"
+        android:layout_width="58dp"
+        android:layout_height="58dp"
+        android:layout_gravity="center"
+        android:alpha=".5"
+        android:src="@drawable/black_circle"
+        android:visibility="gone"/>
 
     <ProgressBar
         android:id="@+id/player_progress_progress_bar"

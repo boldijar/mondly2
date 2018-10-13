@@ -6,6 +6,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -27,10 +28,16 @@ public class PersonProgress extends FrameLayout {
     ProgressBar mProgressBar;
     @BindView(R.id.progress_image)
     ImageView mImage;
+    @BindView(R.id.progress_dead_overlay)
+    View mDeadOverlay;
 
     public PersonProgress(@NonNull Context context) {
         super(context);
         init(null);
+    }
+
+    public void setDeadOverlay(boolean dead) {
+        mDeadOverlay.setVisibility(dead ? VISIBLE : GONE);
     }
 
     public PersonProgress(@NonNull Context context, @Nullable AttributeSet attrs) {

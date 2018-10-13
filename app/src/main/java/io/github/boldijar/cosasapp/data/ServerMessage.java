@@ -18,7 +18,8 @@ public class ServerMessage {
     public User mUser;
     @SerializedName("room_id")
     public int mRoomId;
-
+    @SerializedName("question_answered_count")
+    public int mQuestionAnsweredCount;
 
     @Override
     public String toString() {

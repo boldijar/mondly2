@@ -10,7 +10,17 @@ import io.github.boldijar.cosasapp.data.Question;
  */
 public abstract class BaseQuestionFragment extends Fragment {
 
-    public void answerQuestion(Question question, String answer) {
+    private BaseQuestionListener mListener;
 
+    public void setListener(BaseQuestionListener listener) {
+        mListener = listener;
+    }
+
+    public void answerQuestion(Question question, String answer) {
+        mListener.wannaAnswer(question, answer);
+    }
+
+    interface BaseQuestionListener {
+        void wannaAnswer(Question question, String answer);
     }
 }

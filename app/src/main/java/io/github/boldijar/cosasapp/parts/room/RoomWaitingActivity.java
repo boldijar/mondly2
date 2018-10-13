@@ -118,7 +118,6 @@ public class RoomWaitingActivity extends BaseActivity {
                     @Override
                     public void onNext(BaseResponse baseResponse) {
                         if (baseResponse.isSuccess()) {
-                            Toast.makeText(RoomWaitingActivity.this, "Started game. Waiting for sync...", Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(RoomWaitingActivity.this, "Start game error.", Toast.LENGTH_SHORT).show();
                         }
@@ -162,6 +161,7 @@ public class RoomWaitingActivity extends BaseActivity {
         }
         if (event.mType == MessageType.ROOM_GAME_START) {
             finish();
+            event.mGame.mRoomId = mRoomId;
             startActivity(GameActivity.createIntent(this, event.mGame));
         }
     }

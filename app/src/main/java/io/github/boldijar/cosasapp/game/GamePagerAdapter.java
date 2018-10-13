@@ -16,19 +16,25 @@ import io.github.boldijar.cosasapp.data.QuestionType;
 public class GamePagerAdapter extends FragmentPagerAdapter {
 
     private final List<Question> mQuestions;
+    private final BaseQuestionFragment.BaseQuestionListener mBaseQuestionListener;
 
-    public GamePagerAdapter(FragmentManager fm, List<Question> questions) {
+    public GamePagerAdapter(FragmentManager fm, List<Question> questions, BaseQuestionFragment.BaseQuestionListener baseQuestionListener) {
         super(fm);
         mQuestions = questions;
+        mBaseQuestionListener = baseQuestionListener;
     }
 
     @Override
     public Fragment getItem(int position) {
         Question question = mQuestions.get(position);
+        BaseQuestionFragment fragment;
         if (question.mQuestionType == QuestionType.OPTIONS) {
-            return QuestionOptionsFragment.newInstance(question);
+            fragment = QuestionOptionsFragment.newInstance(question);
+        } else {
+            fragment = QuestionNumberFragment.newInstance(question);
         }
-        return QuestionNumberFragment.newInstance(question);
+        fragment.setListener(mBaseQuestionListener);
+        return fragment;
     }
 
     @Override

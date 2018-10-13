@@ -18,6 +18,11 @@ public class Game implements Parcelable {
     @SerializedName("players")
     public List<User> mPlayers;
 
+    public int mRoomId;
+
+    public Game() {
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -27,17 +32,16 @@ public class Game implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeTypedList(this.mQuestions);
         dest.writeTypedList(this.mPlayers);
-    }
-
-    public Game() {
+        dest.writeInt(this.mRoomId);
     }
 
     protected Game(Parcel in) {
         this.mQuestions = in.createTypedArrayList(Question.CREATOR);
         this.mPlayers = in.createTypedArrayList(User.CREATOR);
+        this.mRoomId = in.readInt();
     }
 
-    public static final Parcelable.Creator<Game> CREATOR = new Parcelable.Creator<Game>() {
+    public static final Creator<Game> CREATOR = new Creator<Game>() {
         @Override
         public Game createFromParcel(Parcel source) {
             return new Game(source);
