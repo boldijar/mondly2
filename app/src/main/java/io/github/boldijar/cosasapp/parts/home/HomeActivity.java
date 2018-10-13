@@ -15,6 +15,7 @@ import io.github.boldijar.cosasapp.R;
 import io.github.boldijar.cosasapp.base.BaseActivity;
 import io.github.boldijar.cosasapp.data.RoomResponse;
 import io.github.boldijar.cosasapp.leaderboard.LeaderboardActivity;
+import io.github.boldijar.cosasapp.parts.history.HistoryActivity;
 import io.github.boldijar.cosasapp.parts.login.LoginActivity;
 import io.github.boldijar.cosasapp.parts.room.RoomListActivity;
 import io.github.boldijar.cosasapp.parts.room.RoomWaitingActivity;
@@ -62,6 +63,11 @@ public class HomeActivity extends BaseActivity {
     @OnClick(R.id.home_top)
     void goToLeaderBoard() {
         startActivity(new Intent(this, LeaderboardActivity.class));
+    }
+
+    @OnClick(R.id.home_quiz_history)
+    void history() {
+        startActivity(new Intent(this, HistoryActivity.class));
     }
 
     @OnClick(R.id.home_join_room)

@@ -3,6 +3,7 @@ package io.github.boldijar.cosasapp.server;
 
 import io.github.boldijar.cosasapp.data.BaseResponse;
 import io.github.boldijar.cosasapp.data.GameStatsResponse;
+import io.github.boldijar.cosasapp.data.HistoryResponse;
 import io.github.boldijar.cosasapp.data.LoginBody;
 import io.github.boldijar.cosasapp.data.LoginResponse;
 import io.github.boldijar.cosasapp.data.RoomResponse;
@@ -50,4 +51,7 @@ public interface ApiService {
 
     @GET("leaderboard")
     Observable<GameStatsResponse> getLeaderboard();
+
+    @GET("rooms/history")
+    Observable<HistoryResponse> getHistory();
 }

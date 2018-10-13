@@ -1,6 +1,10 @@
 package io.github.boldijar.cosasapp.util;
 
+import android.text.format.DateUtils;
+
 import com.google.firebase.messaging.FirebaseMessaging;
+
+import java.sql.Timestamp;
 
 /**
  * @author Paul
@@ -14,5 +18,9 @@ public class FirebaseUtils {
 
     public static void unregisterToRoom(int room) {
         FirebaseMessaging.getInstance().unsubscribeFromTopic("room_" + room);
+    }
+
+    public static CharSequence getRelativeTime(Timestamp time) {
+        return DateUtils.getRelativeTimeSpanString(time.getTime(), System.currentTimeMillis(), 0L);
     }
 }

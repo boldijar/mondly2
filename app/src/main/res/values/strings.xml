@@ -16,4 +16,7 @@
     <string name="you_won">You won! 😍🔝👌</string>
     <string name="top">Leaderboards 🏅</string>
     <string name="flash_challenge">Flash challenge ⚡</string>
+    <string name="gamehistory">Games history</string>
+    <string name="emoji_lost">😢</string>
+    <string name="emoji_won">😀</string>
 </resources>

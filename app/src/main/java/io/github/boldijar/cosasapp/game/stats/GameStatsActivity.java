@@ -112,10 +112,14 @@ public class GameStatsActivity extends BaseActivity {
             if (position == 0 && mOwnUserId == item.mId) {
                 // user won
                 mPulsatorLayout.setColor(Color.GREEN);
-                mPulsatorLayout.start();
+                if (!mPulsatorLayout.isStarted()) {
+                    mPulsatorLayout.start();
+                }
             } else if (mOwnUserId == item.mId) {
                 mPulsatorLayout.setColor(Color.RED);
-                mPulsatorLayout.start();
+                if (!mPulsatorLayout.isStarted()) {
+                    mPulsatorLayout.start();
+                }
             } else {
                 mPulsatorLayout.stop();
             }

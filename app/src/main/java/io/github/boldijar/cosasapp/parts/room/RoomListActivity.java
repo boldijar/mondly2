@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.format.DateUtils;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -21,6 +20,7 @@ import io.github.boldijar.cosasapp.data.Room;
 import io.github.boldijar.cosasapp.data.RoomsResponse;
 import io.github.boldijar.cosasapp.data.User;
 import io.github.boldijar.cosasapp.server.Http;
+import io.github.boldijar.cosasapp.util.FirebaseUtils;
 import io.github.boldijar.cosasapp.util.Observatorul;
 import io.github.boldijar.cosasapp.util.RxUtils;
 
@@ -87,7 +87,7 @@ public class RoomListActivity extends BaseActivity {
             int count = item.mPlayers.size();
             User initiator = item.mPlayers.get(0);
             Glide.with(mImage).load(initiator.mImage).into(mImage);
-            CharSequence when = DateUtils.getRelativeTimeSpanString(item.mCreated.getTime(), System.currentTimeMillis(), 0L);
+            CharSequence when = FirebaseUtils.getRelativeTime(item.mCreated);
             mText.setText("Room created by " + initiator.mName + " " + when + ".\nPlayers joined: " + count);
             itemView.setOnClickListener(view -> selectedRoom(item));
         }

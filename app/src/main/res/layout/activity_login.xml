@@ -66,6 +66,7 @@
                     android:background="@null"
                     android:gravity="end"
                     android:maxLines="1"
+                    android:textSize="13sp"
                     android:paddingBottom="20dp"
                     android:paddingTop="20dp"
                     android:text="razvan.dezsi@gmail.com"
