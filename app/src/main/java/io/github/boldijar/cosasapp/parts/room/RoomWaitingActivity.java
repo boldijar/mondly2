@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,6 +17,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import io.github.boldijar.cosasapp.R;
 import io.github.boldijar.cosasapp.base.BaseActivity;
 import io.github.boldijar.cosasapp.base.FastAdapter;
@@ -29,7 +31,16 @@ import io.github.boldijar.cosasapp.game.GameActivity;
 import io.github.boldijar.cosasapp.server.Http;
 import io.github.boldijar.cosasapp.util.FirebaseUtils;
 import io.github.boldijar.cosasapp.util.Observatorul;
+import io.github.boldijar.cosasapp.util.Prefs;
 import io.github.boldijar.cosasapp.util.RxUtils;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 import timber.log.Timber;
 
 /**
@@ -58,6 +69,8 @@ public class RoomWaitingActivity extends BaseActivity {
         return intent;
     }
 
+    @BindView(R.id.room_waiting_input)
+    EditText mInput;
     @BindView(R.id.room_waiting_list)
     RecyclerView mRecyclerView;
     @BindView(R.id.room_waiting_stats)
@@ -164,6 +177,32 @@ public class RoomWaitingActivity extends BaseActivity {
             event.mGame.mRoomId = mRoomId;
             startActivity(GameActivity.createIntent(this, event.mGame));
         }
+        if (event.mType == MessageType.ROOM_CHAT) {
+            mStats.setText(mStats.getText() + "\n" + event.mMessage);
+        }
+    }
+
+    @OnClick(R.id.room_waiting_send)
+    void sendMessage() {
+        String message = Prefs.getUser().mName + " says: " + mInput.getText().toString();
+        Observable.create((ObservableOnSubscribe<Integer>) emitter -> {
+            OkHttpClient client = new OkHttpClient();
+
+            MediaType mediaType = MediaType.parse("application/json");
+            RequestBody body = RequestBody.create(mediaType, "{\n  \"to\": \"/topics/room_" + mRoomId + "\",\n  \"data\": {\n    \"message\": {\n    \t\"room_id\":" + mRoomId + ",\n    \t\"type\":\"room_chat\",\n    \t\"message\":\"" + message + "\"\n    }\n   }\n}");
+            Request request = new Request.Builder()
+                    .url("https://fcm.googleapis.com/fcm/send")
+                    .post(body)
+                    .addHeader("Authorization", "key=AAAAhHqnJuY:APA91bFXguBc-o75-aHEktULgLKKVjeSNtFZ0-fWrei-CSPSdmXoNaBx1IvirUNUkvuiDNczEzJYNqUqhyuD3EgAV0Ov1EnfDv7m8QD6E4dbQXMjiknEPZhSpMMJh6iZeXNeBVumZrb-")
+                    .addHeader("Content-Type", "application/json")
+                    .addHeader("cache-control", "no-cache")
+                    .addHeader("Postman-Token", "cc86ab08-866f-4b07-ba05-27977a9adb37")
+                    .build();
+
+            Response response = client.newCall(request).execute();
+        }).compose(RxUtils.applySchedulers())
+                .subscribe();
+        mInput.setText(null);
     }
 
 

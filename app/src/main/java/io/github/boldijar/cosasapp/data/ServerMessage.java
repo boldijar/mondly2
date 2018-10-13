@@ -24,6 +24,8 @@ public class ServerMessage {
     public String mChallengedBy;
     @SerializedName("who_was_challenged")
     public int mWhoWasChallanged;
+    @SerializedName("message")
+    public String mMessage;
 
     @Override
     public String toString() {

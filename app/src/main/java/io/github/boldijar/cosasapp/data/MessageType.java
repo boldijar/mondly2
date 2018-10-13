@@ -21,5 +21,7 @@ public enum MessageType {
     @SerializedName("room_player_start")
     ROOM_GAME_START,
     @SerializedName("challenge")
-    CHALLENGE
+    CHALLENGE,
+    @SerializedName("room_chat")
+    ROOM_CHAT
 }

@@ -33,6 +33,7 @@ public class RoomListActivity extends BaseActivity {
     @BindView(R.id.room_list_recycler)
     RecyclerView mRecyclerView;
 
+
     private FastAdapter<Room, RoomHolder> mAdapter;
 
     @Override
@@ -103,4 +104,6 @@ public class RoomListActivity extends BaseActivity {
                     }
                 });
     }
+
+
 }
