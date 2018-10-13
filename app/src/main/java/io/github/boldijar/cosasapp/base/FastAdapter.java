@@ -38,7 +38,7 @@ public abstract class FastAdapter<Type, Holder extends FastAdapter.AbstractHolde
 
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int position) {
-        holder.bind(mItems.get(position));
+        holder.bind(mItems.get(position), position);
     }
 
     @Override
@@ -71,5 +71,10 @@ public abstract class FastAdapter<Type, Holder extends FastAdapter.AbstractHolde
 
         public void bind(T item) {
         }
+
+        public void bind(T item, int position) {
+            bind(item);
+        }
+
     }
 }
