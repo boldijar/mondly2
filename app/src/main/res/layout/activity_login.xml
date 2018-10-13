@@ -68,6 +68,7 @@
                     android:maxLines="1"
                     android:paddingBottom="20dp"
                     android:paddingTop="20dp"
+                    android:text="razvan.dezsi@gmail.com"
                     android:textColor="@color/text_color"
                     />
             </LinearLayout>
@@ -102,9 +103,11 @@
                     android:layout_marginRight="16dp"
                     android:background="@null"
                     android:gravity="end"
+                    android:inputType="textPassword"
                     android:maxLines="1"
                     android:paddingBottom="20dp"
                     android:paddingTop="20dp"
+                    android:text="secret"
                     android:textColor="@color/text_color"
                     />
             </LinearLayout>

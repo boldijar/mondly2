@@ -10,10 +10,6 @@ import com.google.gson.annotations.SerializedName;
  */
 public class LoginResponse extends BaseResponse {
 
-    @SerializedName("token")
-    private String mToken;
-
-    public String getToken() {
-        return mToken;
-    }
+    @SerializedName("data")
+    public User mUser;
 }

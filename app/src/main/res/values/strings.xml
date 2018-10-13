@@ -3,4 +3,8 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="continue_login">Continue…</string>
+    <string name="new_quiz">Start new quiz 😋</string>
+    <string name="quiz_history">View quiz history 👴</string>
+    <string name="logout">Logout 😞</string>
+    <string name="terms_and_conditions">Terms and conditions</string>
 </resources>

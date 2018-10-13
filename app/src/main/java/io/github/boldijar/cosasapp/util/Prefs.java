@@ -14,7 +14,7 @@ import com.google.gson.Gson;
  */
 public enum Prefs {
 
-    User, Token("959c3bc580d386dd56df9a1350e45268a71c486a");
+    User, Token;
 
     Prefs(String defaultValue) {
         mDefaultValue = defaultValue;
@@ -31,6 +31,10 @@ public enum Prefs {
 
     public static void init(Application application) {
         sSharedPreferences = application.getSharedPreferences("prefs", Context.MODE_PRIVATE);
+    }
+
+    public static io.github.boldijar.cosasapp.data.User getUser() {
+        return User.getFromJson(io.github.boldijar.cosasapp.data.User.class);
     }
 
     public void put(Object value) {
