@@ -8,4 +8,6 @@
     <color name="white">#ffffff</color>
     <color name="text_color_secondary">#555555</color>
     <color name="text_color_important">#03A9F4</color>
+
+    <color name="progress">@color/text_color_important</color>
 </resources>

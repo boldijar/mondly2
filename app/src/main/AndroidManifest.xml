@@ -12,15 +12,18 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity android:name=".parts.login.LoginActivity">
+
+        </activity>
+        <activity android:name=".parts.home.HomeActivity"/>
+        <activity android:name=".parts.room.RoomWaitingActivity"/>
+        <activity android:name=".parts.room.RoomListActivity"/>
+        <activity android:name=".game.GameActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".parts.home.HomeActivity"/>
-        <activity android:name=".parts.room.RoomWaitingActivity"/>
-        <activity android:name=".parts.room.RoomListActivity"/>
 
         <service android:name=".fcm.FCMService">
             <intent-filter>
