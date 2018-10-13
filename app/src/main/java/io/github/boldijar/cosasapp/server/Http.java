@@ -2,8 +2,10 @@ package io.github.boldijar.cosasapp.server;
 
 import com.google.gson.GsonBuilder;
 
+import io.github.boldijar.cosasapp.util.Prefs;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -30,6 +32,13 @@ public class Http {
                 .baseUrl(ENDPOINT)
                 .client(new OkHttpClient.Builder()
                         .addInterceptor(interceptor)
+                        .addInterceptor(chain -> {
+                            final Request original = chain.request();
+                            Request.Builder builder = original.newBuilder();
+                            builder = builder.header("Authorization",
+                                    "Bearer " + Prefs.Token.get());
+                            return chain.proceed(builder.build());
+                        })
                         .build())
                 .build().create(ApiService.class);
     }
