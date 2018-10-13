@@ -12,8 +12,8 @@ public class ServerMessage {
     public MessageType mType;
     @SerializedName("score")
     public int mScore;
-    @SerializedName("questions")
-    public int mQuestions;
+    @SerializedName("game")
+    public Game mGame;
     @SerializedName("player")
     public User mUser;
     @SerializedName("room_id")
@@ -26,7 +26,7 @@ public class ServerMessage {
                 "mType=" + mType +
                 ", mPlayerId=" + mUser +
                 ", mScore=" + mScore +
-                ", mQuestions=" + mQuestions +
+                ", mGame=" + mGame +
                 '}';
     }
 }

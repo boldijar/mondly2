@@ -38,4 +38,7 @@ public interface ApiService {
     @POST("rooms/join/{room_id}")
     Observable<BaseResponse> joinRoom(@Path("room_id") int roomId);
 
+    @POST("rooms/{room_id}/start")
+    Observable<BaseResponse> startGame(@Path("room_id") int roomId);
+
 }

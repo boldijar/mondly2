@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,13 +20,16 @@ import io.github.boldijar.cosasapp.R;
 import io.github.boldijar.cosasapp.base.BaseActivity;
 import io.github.boldijar.cosasapp.base.FastAdapter;
 import io.github.boldijar.cosasapp.base.Tulbar;
+import io.github.boldijar.cosasapp.data.BaseResponse;
 import io.github.boldijar.cosasapp.data.MessageType;
 import io.github.boldijar.cosasapp.data.Room;
 import io.github.boldijar.cosasapp.data.ServerMessage;
 import io.github.boldijar.cosasapp.data.User;
+import io.github.boldijar.cosasapp.game.GameActivity;
 import io.github.boldijar.cosasapp.server.Http;
 import io.github.boldijar.cosasapp.util.FirebaseUtils;
 import io.github.boldijar.cosasapp.util.Observatorul;
+import io.github.boldijar.cosasapp.util.RxUtils;
 import timber.log.Timber;
 
 /**
@@ -100,19 +102,34 @@ public class RoomWaitingActivity extends BaseActivity {
 
         }
         mTulbar.enableCustomIcon(mUserCreated);
-        mTulbar.setCustomIconClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (mAdapter.getItemCount() == 0) {
-                    Toast.makeText(RoomWaitingActivity.this, "You can't play alone!", Toast.LENGTH_SHORT).show();
-                } else {
-                    startGame();
-                }
+        mTulbar.setCustomIconClickListener(view -> {
+            if (mAdapter.getItemCount() == 0) {
+                Toast.makeText(RoomWaitingActivity.this, "You can't play alone!", Toast.LENGTH_SHORT).show();
+            } else {
+                startGame();
             }
         });
     }
 
     private void startGame() {
+        Http.getInstance().getApiService().startGame(mRoomId)
+                .compose(RxUtils.applySchedulers())
+                .subscribe(new Observatorul<BaseResponse>() {
+                    @Override
+                    public void onNext(BaseResponse baseResponse) {
+                        if (baseResponse.isSuccess()) {
+                            Toast.makeText(RoomWaitingActivity.this, "Started game. Waiting for sync...", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(RoomWaitingActivity.this, "Start game error.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                        Toast.makeText(RoomWaitingActivity.this, "Start game error.", Toast.LENGTH_SHORT).show();
+                    }
+                });
 
     }
 
@@ -142,6 +159,10 @@ public class RoomWaitingActivity extends BaseActivity {
             mStats.setText(mStats.getText() + "\n" + event.mUser.mName + " left the room.");
             mAdapter.removeItem(event.mUser);
 
+        }
+        if (event.mType == MessageType.ROOM_GAME_START) {
+            finish();
+            startActivity(GameActivity.createIntent(this, event.mGame));
         }
     }
 

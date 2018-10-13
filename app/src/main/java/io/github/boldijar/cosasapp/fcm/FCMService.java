@@ -10,6 +10,7 @@ import com.google.gson.JsonSyntaxException;
 import org.greenrobot.eventbus.EventBus;
 
 import io.github.boldijar.cosasapp.data.ServerMessage;
+import timber.log.Timber;
 
 /**
  * @author Paul
@@ -23,6 +24,7 @@ public class FCMService extends FirebaseMessagingService {
             Log.e("TAG", "GOT NULL SHIET");
         } else {
             try {
+                Timber.d("Got message: " + remoteMessage.getData().get("message"));
                 ServerMessage message = new Gson().fromJson(remoteMessage.getData().get("message"), ServerMessage.class);
                 EventBus.getDefault().post(message);
             } catch (JsonSyntaxException e) {
