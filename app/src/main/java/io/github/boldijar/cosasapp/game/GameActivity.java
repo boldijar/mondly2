@@ -41,7 +41,7 @@ import timber.log.Timber;
  * @author Paul
  * @since 2018.10.13
  */
-public class GameActivitgiy extends BaseActivity implements BaseQuestionFragment.BaseQuestionListener {
+public class GameActivity extends BaseActivity implements BaseQuestionFragment.BaseQuestionListener {
 
     private static final String ARG_GAME = "game";
     private static final String ARG_POWER = "power";
