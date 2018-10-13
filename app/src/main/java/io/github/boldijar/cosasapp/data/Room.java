@@ -8,6 +8,8 @@ import com.google.gson.annotations.SerializedName;
 import java.sql.Timestamp;
 import java.util.List;
 
+import io.github.boldijar.cosasapp.util.Prefs;
+
 /**
  * @author Paul
  * @since 2018.10.13
@@ -56,4 +58,15 @@ public class Room implements Parcelable {
             return new Room[size];
         }
     };
+
+    public void clearOwnPlayer() {
+        int ownId = Prefs.getUser().mId;
+        for (int i = 0; i < mPlayers.size(); i++) {
+            User player = mPlayers.get(i);
+            if (ownId == player.mId) {
+                mPlayers.remove(i);
+                return;
+            }
+        }
+    }
 }

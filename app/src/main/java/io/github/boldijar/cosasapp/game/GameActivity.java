@@ -41,10 +41,10 @@ import timber.log.Timber;
  * @author Paul
  * @since 2018.10.13
  */
-public class GameActivity extends BaseActivity implements BaseQuestionFragment.BaseQuestionListener {
+public class GameActivitgiy extends BaseActivity implements BaseQuestionFragment.BaseQuestionListener {
 
     private static final String ARG_GAME = "game";
-    private static final int GAME_SECONDS = 60;
+    private static final String ARG_POWER = "power";
     @BindView(R.id.game_persons_scroll)
     LinearLayout mLinearLayout;
     @BindView(R.id.game_pager)
@@ -59,10 +59,13 @@ public class GameActivity extends BaseActivity implements BaseQuestionFragment.B
     private int mOwnId;
     private Disposable mTimer;
     private boolean mGameOver;
+    private boolean mPowerUp;
+    private int mGameSeconds = 10;
 
-    public static Intent createIntent(Context context, Game game) {
+    public static Intent createIntent(Context context, Game game, boolean powerUp) {
         Intent intent = new Intent(context, GameActivity.class);
         intent.putExtra(ARG_GAME, game);
+        intent.putExtra(ARG_POWER, powerUp);
         return intent;
     }
 
@@ -72,6 +75,10 @@ public class GameActivity extends BaseActivity implements BaseQuestionFragment.B
         setContentView(R.layout.activity_game);
         ButterKnife.bind(this);
         loadArgs();
+        if (mPowerUp) {
+            Toast.makeText(this, "You're gifted with 10 extra seconds!", Toast.LENGTH_SHORT).show();
+            mGameSeconds += 10;
+        }
         initUi();
         EventBus.getDefault().register(this);
     }
@@ -96,15 +103,18 @@ public class GameActivity extends BaseActivity implements BaseQuestionFragment.B
         mGamePagerAdapter = new GamePagerAdapter(getSupportFragmentManager(), mGame.mQuestions, this);
         mViewPager.setAdapter(mGamePagerAdapter);
         mViewPager.setOnTouchListener((arg0, arg1) -> true);
-        mProgressBar.setMax(GAME_SECONDS);
+        mProgressBar.setMax(mGameSeconds);
         mProgressBar.setProgress(0);
         Observable.interval(1, TimeUnit.SECONDS)
                 .compose(RxUtils.applySchedulers())
                 .subscribe(new ObservatorulNormal<Long>() {
                     @Override
                     public void onNext(Long aLong) {
-                        mProgressBar.setProgress(mProgressBar.getProgress() + 1);
-                        if (mProgressBar.getProgress() > GAME_SECONDS) {
+                        int currentProgress = mProgressBar.getProgress();
+                        currentProgress++;
+                        Timber.v("Progress is now: " + currentProgress + " seconds");
+                        mProgressBar.setProgress(currentProgress );
+                        if (currentProgress > mGameSeconds) {
                             timeEnded();
                         }
                     }
@@ -131,6 +141,7 @@ public class GameActivity extends BaseActivity implements BaseQuestionFragment.B
         try {
             mGame = getIntent().getParcelableExtra(ARG_GAME);
             mOwnId = Prefs.getUser().mId;
+            mPowerUp = getIntent().getBooleanExtra(ARG_POWER, false);
         } catch (Exception e) {
             e.printStackTrace();
         }

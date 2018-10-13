@@ -62,7 +62,8 @@ public class QuestionNumberFragment extends BaseQuestionFragment {
     @OnClick({
             R.id.question_numbers_1, R.id.question_numbers_4, R.id.question_numbers_7,
             R.id.question_numbers_2, R.id.question_numbers_5, R.id.question_numbers_8,
-            R.id.question_numbers_3, R.id.question_numbers_6, R.id.question_numbers_9
+            R.id.question_numbers_3, R.id.question_numbers_6, R.id.question_numbers_9,
+            R.id.question_numbers_0
     })
     void clickedNumber(View view) {
         if (!(view instanceof TextView)) {

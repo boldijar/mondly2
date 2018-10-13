@@ -10,6 +10,6 @@
     <color name="text_color_important">#03A9F4</color>
 
     <color name="progress">#03A9F4</color>
-    <color name="progress_bg">#7003A9F4</color>
+    <color name="progress_bg">#5003A9F4</color>
     <color name="black">#000000</color>
 </resources>

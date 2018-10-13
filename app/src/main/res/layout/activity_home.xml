@@ -8,14 +8,13 @@
 
     <pl.bclogic.pulsator4droid.library.PulsatorLayout
         android:id="@+id/home_image_layout"
-        android:layout_width="206dp"
-        android:layout_height="206dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -26,15 +25,10 @@
         app:pulse_repeat="0"
         app:pulse_startFromScratch="true">
 
-        <View
-            android:layout_width="125dp"
-            android:layout_height="125dp"
-            android:background="@android:color/transparent"/>
-
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/home_image"
-            android:layout_width="125dp"
-            android:layout_height="125dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_centerInParent="true"
             android:clickable="true"
             android:contentDescription="@null"

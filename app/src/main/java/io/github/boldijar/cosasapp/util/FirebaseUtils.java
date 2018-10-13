@@ -5,6 +5,7 @@ import android.text.format.DateUtils;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.sql.Timestamp;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author Paul
@@ -21,6 +22,6 @@ public class FirebaseUtils {
     }
 
     public static CharSequence getRelativeTime(Timestamp time) {
-        return DateUtils.getRelativeTimeSpanString(time.getTime(), System.currentTimeMillis(), 0L);
+        return DateUtils.getRelativeTimeSpanString(time.getTime(), System.currentTimeMillis() - TimeUnit.HOURS.toMillis(3), 0L);
     }
 }

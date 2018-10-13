@@ -34,7 +34,6 @@ import io.github.boldijar.cosasapp.util.Observatorul;
 import io.github.boldijar.cosasapp.util.Prefs;
 import io.github.boldijar.cosasapp.util.RxUtils;
 import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -110,6 +109,7 @@ public class RoomWaitingActivity extends BaseActivity {
         } else {
             if (mRoom != null && mRoom.mPlayers != null && mRoom.mPlayers.size() != 0) {
                 mStats.setText("You just joined this room created by " + mRoom.mPlayers.get(0).mName + ".");
+                mRoom.clearOwnPlayer();
                 mAdapter.add(mRoom.mPlayers);
             }
 
@@ -175,7 +175,7 @@ public class RoomWaitingActivity extends BaseActivity {
         if (event.mType == MessageType.ROOM_GAME_START) {
             finish();
             event.mGame.mRoomId = mRoomId;
-            startActivity(GameActivity.createIntent(this, event.mGame));
+            startActivity(GameActivity.createIntent(this, event.mGame,event.mPowerUp==Prefs.getUser().mId));
         }
         if (event.mType == MessageType.ROOM_CHAT) {
             mStats.setText(mStats.getText() + "\n" + event.mMessage);

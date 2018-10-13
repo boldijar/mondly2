@@ -26,14 +26,23 @@ public class ServerMessage {
     public int mWhoWasChallanged;
     @SerializedName("message")
     public String mMessage;
+    @SerializedName("power_up")
+    public int mPowerUp;
+
 
     @Override
     public String toString() {
         return "ServerMessage{" +
                 "mType=" + mType +
-                ", mPlayerId=" + mUser +
                 ", mScore=" + mScore +
                 ", mGame=" + mGame +
+                ", mUser=" + mUser +
+                ", mRoomId=" + mRoomId +
+                ", mQuestionAnsweredCount=" + mQuestionAnsweredCount +
+                ", mChallengedBy='" + mChallengedBy + '\'' +
+                ", mWhoWasChallanged=" + mWhoWasChallanged +
+                ", mMessage='" + mMessage + '\'' +
+                ", mPowerUp=" + mPowerUp +
                 '}';
     }
 }
