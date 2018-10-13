@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
 
+import com.google.firebase.messaging.FirebaseMessaging;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -44,6 +46,7 @@ public class LoginActivity extends BaseActivity {
                     @Override
                     public void onNext(LoginResponse loginResponse) {
                         if (loginResponse.isSuccess()) {
+                            FirebaseMessaging.getInstance().subscribeToTopic(loginResponse.mUser.mId + "");
                             Prefs.Token.put(loginResponse.mUser.mToken);
                             Prefs.User.putAsJson(loginResponse.mUser);
                             finish();

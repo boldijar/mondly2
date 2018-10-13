@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,6 +50,7 @@ public class HomeActivity extends BaseActivity {
 
     @OnClick(R.id.home_logout)
     void logout() {
+        FirebaseMessaging.getInstance().unsubscribeFromTopic(Prefs.getUser().mId + "");
         Prefs.User.put(null);
         Prefs.Token.put(null);
         Intent intent = new Intent(this, LoginActivity.class);

@@ -20,6 +20,10 @@ public class ServerMessage {
     public int mRoomId;
     @SerializedName("question_answered_count")
     public int mQuestionAnsweredCount;
+    @SerializedName("challenged_by_name")
+    public String mChallengedBy;
+    @SerializedName("who_was_challenged")
+    public int mWhoWasChallanged;
 
     @Override
     public String toString() {
