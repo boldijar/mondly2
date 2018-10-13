@@ -12,9 +12,14 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.github.boldijar.cosasapp.R;
 import io.github.boldijar.cosasapp.base.BaseActivity;
+import io.github.boldijar.cosasapp.data.RoomResponse;
 import io.github.boldijar.cosasapp.parts.login.LoginActivity;
-import io.github.boldijar.cosasapp.parts.users.UsersBottomSheet;
+import io.github.boldijar.cosasapp.parts.room.RoomListActivity;
+import io.github.boldijar.cosasapp.parts.room.RoomWaitingActivity;
+import io.github.boldijar.cosasapp.server.Http;
+import io.github.boldijar.cosasapp.util.Observatorul;
 import io.github.boldijar.cosasapp.util.Prefs;
+import io.github.boldijar.cosasapp.util.RxUtils;
 import pl.bclogic.pulsator4droid.library.PulsatorLayout;
 
 /**
@@ -50,8 +55,21 @@ public class HomeActivity extends BaseActivity {
         startActivity(intent);
     }
 
-    @OnClick(R.id.home_quiz_history)
-    void openHistory() {
-        new UsersBottomSheet().show(getSupportFragmentManager(), "");
+
+    @OnClick(R.id.home_join_room)
+    void joinRoom() {
+        startActivity(new Intent(this, RoomListActivity.class));
+    }
+
+    @OnClick(R.id.home_create_room)
+    void createNewRoom() {
+        Http.getInstance().getApiService().createRoom()
+                .compose(RxUtils.applySchedulers())
+                .subscribe(new Observatorul<RoomResponse>() {
+                    @Override
+                    public void onNext(RoomResponse roomResponse) {
+                        startActivity(RoomWaitingActivity.createIntent(HomeActivity.this, roomResponse.mRoom.mId, true));
+                    }
+                });
     }
 }

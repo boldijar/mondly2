@@ -5,8 +5,11 @@ import android.util.Log;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 
 import org.greenrobot.eventbus.EventBus;
+
+import io.github.boldijar.cosasapp.data.ServerMessage;
 
 /**
  * @author Paul
@@ -19,7 +22,12 @@ public class FCMService extends FirebaseMessagingService {
         if (remoteMessage.getData() == null) {
             Log.e("TAG", "GOT NULL SHIET");
         } else {
-            EventBus.getDefault().post(new Gson().toJson(remoteMessage.getData()));
+            try {
+                ServerMessage message = new Gson().fromJson(remoteMessage.getData().get("message"), ServerMessage.class);
+                EventBus.getDefault().post(message);
+            } catch (JsonSyntaxException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

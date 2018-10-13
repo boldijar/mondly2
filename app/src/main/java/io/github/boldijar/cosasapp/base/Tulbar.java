@@ -79,7 +79,7 @@ public class Tulbar extends ConstraintLayout {
         findViewById(R.id.tulbar_back_icon).setOnClickListener(view -> {
             if (getContext() instanceof Activity) {
                 Activity activity = (Activity) getContext();
-                activity.finish();
+                activity.onBackPressed();
             }
         });
     }

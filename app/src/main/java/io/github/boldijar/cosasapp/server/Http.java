@@ -17,7 +17,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class Http {
 
-    private static final String ENDPOINT = "http://ca69a767.ngrok.io/api/";
+    private static final String ENDPOINT = "http://bccfccde.ngrok.io/api/";
     private ApiService mApiService;
 
     private Http() {

@@ -3,9 +3,12 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="continue_login">Continue…</string>
-    <string name="new_quiz">Start new quiz 😋</string>
-    <string name="quiz_history">View quiz history 👴</string>
+    <string name="create_room">Create new room 😋</string>
+    <string name="joinroom">Join a room 😋</string>
+    <string name="quiz_history">View game history 👴</string>
     <string name="logout">Logout 😞</string>
     <string name="terms_and_conditions">Terms and conditions</string>
     <string name="search_here">Search here…</string>
+    <string name="waiting_for_players">Waiting for players</string>
+    <string name="choose_room">Choose your room</string>
 </resources>

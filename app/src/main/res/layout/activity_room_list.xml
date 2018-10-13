@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent">
+
+    <io.github.boldijar.cosasapp.base.Tulbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:text="@string/choose_room"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/room_list_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/tulbar_size">
+    </android.support.v7.widget.RecyclerView>
+</FrameLayout>

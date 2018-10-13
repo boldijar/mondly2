@@ -46,6 +46,22 @@ public abstract class FastAdapter<Type, Holder extends FastAdapter.AbstractHolde
         return mItems.size();
     }
 
+    public void addItem(Type item) {
+        mItems.add(item);
+        notifyItemInserted(mItems.size() - 1);
+    }
+
+    public void removeItem(Type item) {
+        for (int i = 0; i < mItems.size(); i++) {
+            Type anItem = mItems.get(i);
+            if (anItem.equals(item)) {
+                mItems.remove(anItem);
+                notifyItemRemoved(i);
+                return;
+            }
+        }
+    }
+
     public static class AbstractHolder<T> extends RecyclerView.ViewHolder {
 
         public AbstractHolder(ViewGroup parent, int layoutId) {
