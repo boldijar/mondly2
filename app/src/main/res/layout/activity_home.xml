@@ -124,6 +124,7 @@
                 android:alpha=".3"
                 android:background="@color/text_color_secondary"
                 />
+
             <TextView
                 android:id="@+id/home_top"
                 android:layout_width="match_parent"
@@ -156,6 +157,28 @@
                 android:gravity="center"
                 android:padding="16dp"
                 android:text="@string/logout"
+                android:textColor="@color/text_color"
+                android:textSize="16sp"
+                />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:alpha=".3"
+                android:background="@color/text_color_secondary"
+                />
+
+
+            <TextView
+                android:id="@+id/home_flash_challenge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:padding="16dp"
+                android:text="@string/flash_challenge"
                 android:textColor="@color/text_color"
                 android:textSize="16sp"
                 />

@@ -18,6 +18,7 @@ import io.github.boldijar.cosasapp.leaderboard.LeaderboardActivity;
 import io.github.boldijar.cosasapp.parts.login.LoginActivity;
 import io.github.boldijar.cosasapp.parts.room.RoomListActivity;
 import io.github.boldijar.cosasapp.parts.room.RoomWaitingActivity;
+import io.github.boldijar.cosasapp.parts.users.UsersBottomSheet;
 import io.github.boldijar.cosasapp.server.Http;
 import io.github.boldijar.cosasapp.util.Observatorul;
 import io.github.boldijar.cosasapp.util.Prefs;
@@ -78,5 +79,10 @@ public class HomeActivity extends BaseActivity {
                         startActivity(RoomWaitingActivity.createIntent(HomeActivity.this, roomResponse.mRoom.mId, true));
                     }
                 });
+    }
+
+    @OnClick(R.id.home_flash_challenge)
+    void challange() {
+        new UsersBottomSheet().show(getSupportFragmentManager(), "");
     }
 }
