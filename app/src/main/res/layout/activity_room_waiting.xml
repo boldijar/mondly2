@@ -12,13 +12,14 @@
         android:id="@+id/room_waiting_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:customIconDrawable="@drawable/ic_check_black_24dp"
+        app:customIconEnabled="true"
         app:text="@string/waiting_for_players"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/room_waiting_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="120dp"
+        android:layout_height="130dp"
         android:padding="16dp"/>
 
     <ScrollView

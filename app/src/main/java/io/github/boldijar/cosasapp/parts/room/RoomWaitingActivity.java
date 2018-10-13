@@ -18,11 +18,14 @@ import butterknife.ButterKnife;
 import io.github.boldijar.cosasapp.R;
 import io.github.boldijar.cosasapp.base.BaseActivity;
 import io.github.boldijar.cosasapp.base.FastAdapter;
+import io.github.boldijar.cosasapp.base.Tulbar;
 import io.github.boldijar.cosasapp.data.MessageType;
+import io.github.boldijar.cosasapp.data.Room;
 import io.github.boldijar.cosasapp.data.ServerMessage;
 import io.github.boldijar.cosasapp.data.User;
 import io.github.boldijar.cosasapp.server.Http;
 import io.github.boldijar.cosasapp.util.FirebaseUtils;
+import io.github.boldijar.cosasapp.util.Observatorul;
 import timber.log.Timber;
 
 /**
@@ -33,6 +36,7 @@ public class RoomWaitingActivity extends BaseActivity {
 
     private static final String ARG_ROOM_ID = "roomid";
     private static final String ARG_USER_CREATED = "user_created";
+    private static final String ARG_ROOM = "room";
     private boolean mUserCreated;
 
     public static Intent createIntent(Context context, int roomId, boolean userCreated) {
@@ -42,13 +46,24 @@ public class RoomWaitingActivity extends BaseActivity {
         return intent;
     }
 
+    public static Intent createIntent(Context context, int roomId, boolean userCreated, Room room) {
+        Intent intent = new Intent(context, RoomWaitingActivity.class);
+        intent.putExtra(ARG_ROOM_ID, roomId);
+        intent.putExtra(ARG_USER_CREATED, userCreated);
+        intent.putExtra(ARG_ROOM, room);
+        return intent;
+    }
+
     @BindView(R.id.room_waiting_list)
     RecyclerView mRecyclerView;
     @BindView(R.id.room_waiting_stats)
     TextView mStats;
+    @BindView(R.id.room_waiting_toolbar)
+    Tulbar mTulbar;
 
     private FastAdapter<User, PersonHolder> mAdapter;
     private int mRoomId;
+    private Room mRoom;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,6 +71,11 @@ public class RoomWaitingActivity extends BaseActivity {
         setContentView(R.layout.activity_room_waiting);
         mRoomId = getIntent().getIntExtra(ARG_ROOM_ID, -1);
         mUserCreated = getIntent().getBooleanExtra(ARG_USER_CREATED, false);
+        try {
+            mRoom = getIntent().getParcelableExtra(ARG_ROOM);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         FirebaseUtils.registerToRoom(mRoomId);
         EventBus.getDefault().register(this);
 
@@ -68,6 +88,16 @@ public class RoomWaitingActivity extends BaseActivity {
         };
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        if (mUserCreated) {
+            mStats.setText("You created this room.");
+        } else {
+            if (mRoom != null && mRoom.mPlayers != null && mRoom.mPlayers.size() != 0) {
+                mStats.setText("You just joined this room created by " + mRoom.mPlayers.get(0).mName + ".");
+                mAdapter.add(mRoom.mPlayers);
+            }
+
+        }
+        mTulbar.enableCustomIcon(mUserCreated);
     }
 
     @Override
@@ -78,7 +108,7 @@ public class RoomWaitingActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        Http.getInstance().getApiService().leaveRoom(mRoomId);
+        Http.getInstance().getApiService().leaveRoom(mRoomId).subscribe(new Observatorul<>());
         super.onBackPressed();
     }
 

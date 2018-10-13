@@ -28,6 +28,11 @@ public class Tulbar extends ConstraintLayout {
     @BindView(R.id.tulbar_custom_icon)
     ImageView mCustomIcon;
 
+
+    public void enableCustomIcon(boolean enable) {
+        mCustomIcon.setVisibility(enable ? VISIBLE : GONE);
+    }
+
     public Tulbar(Context context) {
         super(context);
         init();

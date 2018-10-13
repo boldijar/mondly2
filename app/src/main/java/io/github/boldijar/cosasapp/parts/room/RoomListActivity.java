@@ -98,7 +98,7 @@ public class RoomListActivity extends BaseActivity {
                 .subscribe(new Observatorul<BaseResponse>() {
                     @Override
                     public void onNext(BaseResponse baseResponse) {
-                        startActivity(RoomWaitingActivity.createIntent(RoomListActivity.this, item.mId, false));
+                        startActivity(RoomWaitingActivity.createIntent(RoomListActivity.this, item.mId, false,item));
                     }
                 });
     }
